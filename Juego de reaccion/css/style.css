@@ -21,12 +21,13 @@ h1{
     font-size: 32rem;
     color: #9929EA;
     margin-bottom: 50rem;
+    text-align: center;
 }
 
 p{
     font-size: 16rem;
     color: #FAEB92;
-
+    text-align: center;
 }
 
 button{
@@ -39,17 +40,21 @@ button{
     font-weight: 400;
     font-style: normal;
     background-color: #FAEB92;
+    user-select: none;
 }
 
 button:hover{
     background-color: #FF5FCF;
-    color: #FAEB92;
 }
 
 .shooter_button{
     height: 50rem;
     width: 50rem;
     border-radius: 100rem;
+}
+
+.button-hit {
+    background-color: black !important;
 }
 
 #game-container{

@@ -7,6 +7,7 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 //Obtenemos referencias a los elementos del DOM que utilizaremos en el juego
 let button_start = document.getElementById("start-button");
 let game_container = document.getElementById("game-container");
+let target = document.getElementById("target");
 let message = document.getElementById("message");
 let p_score = document.getElementById("score");
 //Inicializamos la puntuación y el array de índices de los botones
@@ -29,12 +30,15 @@ function startGame(){
     //Reiniciamos la puntuación y el array de índices de los botones
     score = 0;
     index_buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    p_score.style.display = "block";
+    target.style.display = "grid";
     //Mostramos los botones y los habilitamos para el juego
     for (let i = 0; i < index_buttons.length; i++) {
         let button = document.getElementById(`target-button_${index_buttons[i]}`);
         if (button) {
-            button.style.backgroundColor = "#FAEB92";
+            button.classList.remove("button-hit");
             button.style.visibility = "visible";
+            button.textContent = "";
             button.disabled = false;
         }
     }
@@ -69,7 +73,7 @@ async function gameLogic(){
     button.textContent = "X";
     button.addEventListener("click", () => {
         score++;
-        button.style.backgroundColor = "black";
+        button.classList.add("button-hit");
         p_score.textContent = "Puntuación: " + score;
         button.disabled = true;
     });
@@ -79,6 +83,8 @@ async function gameLogic(){
     if(index_buttons.length > 0){
         gameLogic();
     } else{
+        p_score.style.display = "none";
+        target.style.display = "none";
         message.innerHTML = "¡Juego terminado! <br>Puntuación final: " + score;
         await delay(5000);
         refreshPage();
