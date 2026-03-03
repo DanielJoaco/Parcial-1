@@ -1,39 +1,31 @@
-/**
- * SELECTORES GLOBALES
- */
 const cardsGridSection = document.getElementById('cards-grid');
 const navButtonsSection = document.getElementById('nav-buttons');
 const viewCharacterSection = document.getElementById('view-character');
+
 let url = 'https://rickandmortyapi.com/api/character';
 
-/**
- * 1. DELEGACIÓN DE EVENTOS (Nivel Superior)
- * Escuchamos una sola vez en el contenedor principal para evitar acumulaciones.
- */
 cardsGridSection.addEventListener('click', (event) => {
     const link = event.target.closest('.view-more a');
     if (link) {
-        event.preventDefault();
-        viewCharacter(link.id);   
+        event.preventDefault(); 
+        const characterId = link.id;
+        if (characterId) {
+            viewCharacter(characterId);
+        }
     }
 });
 
-// Delegación para la sección de vista detallada (Guardar y Regresar)
 viewCharacterSection.addEventListener('click', (event) => {
     if (event.target.closest('.return-link')) {
         event.preventDefault();
         returnToMain();
     }
     if (event.target.id === 'save-character-btn') {
-        // Obtenemos el objeto guardado temporalmente en el dataset del elemento
         const characterData = JSON.parse(viewCharacterSection.dataset.currentCharacter);
         saveCharacter(characterData);
     }
 });
 
-/**
- * LÓGICA DE INTERFAZ Y ALERTAS
- */
 function myCustomAlert(msg) {
     const dialog = document.getElementById('custom-alert');
     const messageP = document.getElementById('alert-message');
@@ -49,19 +41,15 @@ function myCustomAlert(msg) {
     };
 }
 
-/**
- * COMUNICACIÓN CON LA API
- */
 async function fetchData(url) {
     try {
-        // Estado de carga visual
         navButtonsSection.style.pointerEvents = 'none';
         navButtonsSection.style.opacity = '0.5';
 
         const response = await fetch(url);
         const data = await response.json();
         
-        showData(data);
+        showData(data.results);
         showPagination(data.info);
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -71,21 +59,25 @@ async function fetchData(url) {
     }
 }
 
-function showData(data) {
-    cardsGridSection.innerHTML = '';
-    data.results.forEach(character => {
+function showData(results) {
+    cardsGridSection.innerHTML = ''; 
+    const fragment = document.createDocumentFragment();
+    
+    results.forEach(character => {
         const card = document.createElement('article');
         card.classList.add('card');
         card.innerHTML = `
             <div class="div-card-img">
-                <img src="${character.image}" alt="${character.name}">
+                <img 
+                    src="${character.image}" 
+                    alt="${character.name}" 
+                    loading="lazy"
+                    onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';"
+                >
             </div>
             <div class="div-card-info">
                 <h3>Name: ${character.name}</h3>
-                <p>Status: <button class="button-alive ${
-                    character.status === 'Alive' ? 'button-alive-true' : 
-                    character.status === 'Dead' ? 'button-alive-false' : 'button-alive-unknown'
-                }"></button> ${character.status}</p>
+                <p>Status: <button class="button-alive ${getStatusClass(character.status)}"></button> ${character.status}</p>
                 <p>Species: ${character.species}</p>
                 <p>Gender: ${character.gender}</p>
                 <div class="view-more">
@@ -98,20 +90,17 @@ function showData(data) {
                     </a>
                 </div>
             </div>`;
-        cardsGridSection.appendChild(card);
+        fragment.appendChild(card);
     });
+    cardsGridSection.appendChild(fragment);
 }
 
-/**
- * VISTA DE DETALLE Y PERSISTENCIA
- */
 async function viewCharacter(id) {
     const characterUrl = `https://rickandmortyapi.com/api/character/${id}`;
     try {
         const response = await fetch(characterUrl);
         const character = await response.json();
 
-        // Guardamos el objeto actual en el dataset para recuperarlo al guardar
         viewCharacterSection.dataset.currentCharacter = JSON.stringify(character);
 
         cardsGridSection.style.display = 'none';
@@ -121,16 +110,17 @@ async function viewCharacter(id) {
         viewCharacterSection.innerHTML = `
         <article id="character-card">
             <div id="div-character-img">
-                <img src="${character.image}" alt="${character.name}">
+                <img 
+                    src="${character.image}" 
+                    alt="${character.name}"
+                    onerror="this.onerror=null; this.src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';"
+                >
                 <button id="save-character-btn" class="nav-button">Save character</button>
             </div>
             <div id="div-character-info">
                 <div>
                     <h3>Name: ${character.name}</h3>
-                    <p>Status: <button class="button-alive ${
-                        character.status === 'Alive' ? 'button-alive-true' : 
-                        character.status === 'Dead' ? 'button-alive-false' : 'button-alive-unknown'
-                    }"></button> ${character.status}</p>
+                    <p>Status: <button class="button-alive ${getStatusClass(character.status)}"></button> ${character.status}</p>
                     <p>Species: ${character.species}</p>
                     <p>Type: ${character.type || 'N/A'}</p>
                     <p>Gender: ${character.gender}</p>
@@ -173,7 +163,7 @@ function saveCharacter(character) {
 
     const exists = store.results.some(fav => fav.id === character.id);
     if (exists) {
-        return myCustomAlert("Este personaje ya está en tus favoritos.");
+        return myCustomAlert("This character is already saved.");
     }
 
     store.results.push(character);
@@ -181,28 +171,30 @@ function saveCharacter(character) {
     store.info.pages = Math.ceil(store.info.count / itemsPerPage);
     
     localStorage.setItem(KEY, JSON.stringify(store));
-    myCustomAlert(`${character.name} guardado con éxito.`);
+    myCustomAlert(`${character.name} saved successfully.`);
 }
 
-/**
- * PAGINACIÓN DINÁMICA (Sliding Window)
- */
 function showPagination(info) {
     navButtonsSection.innerHTML = '';
     const totalPages = info.pages;
     
-    // Obtener página actual desde las URLs de la API
-    const currentPage = info.prev ? parseInt(new URL(info.prev).searchParams.get('page')) + 1 : 
-                        (info.next ? parseInt(new URL(info.next).searchParams.get('page')) - 1 : 1);
+    const getPageNum = (urlStr) => {
+        if (!urlStr) return null;
+        try {
+            return parseInt(new URL(urlStr).searchParams.get('page'));
+        } catch(e) { return null; }
+    };
 
-    // Algoritmo de ventana deslizante
+    const prevPage = getPageNum(info.prev);
+    const nextPage = getPageNum(info.next);
+    const currentPage = prevPage !== null ? prevPage + 1 : (nextPage !== null ? nextPage - 1 : 1);
+
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, currentPage + 2);
 
     if (startPage === 1) endPage = Math.min(totalPages, 5);
     if (endPage === totalPages) startPage = Math.max(1, totalPages - 4);
 
-    // Botón Previous
     const prevBtn = document.createElement('button');
     prevBtn.textContent = 'Previous';
     prevBtn.className = 'nav-button';
@@ -210,7 +202,6 @@ function showPagination(info) {
     prevBtn.onclick = () => goToPage(currentPage - 1);
     navButtonsSection.appendChild(prevBtn);
 
-    // Números de página
     for (let i = startPage; i <= endPage; i++) {
         const pageBtn = document.createElement('button');
         pageBtn.textContent = i;
@@ -219,7 +210,6 @@ function showPagination(info) {
         navButtonsSection.appendChild(pageBtn);
     }
 
-    // Botón Next
     const nextBtn = document.createElement('button');
     nextBtn.textContent = 'Next';
     nextBtn.className = 'nav-button';
@@ -237,5 +227,9 @@ function goToPage(pageNumber) {
     });
 }
 
-// Carga Inicial
+function getStatusClass(status) {
+    return status === 'Alive' ? 'button-alive-true' : 
+           status === 'Dead' ? 'button-alive-false' : 'button-alive-unknown';
+}
+
 fetchData(url);

@@ -293,3 +293,24 @@ footer{
     }
     
 }
+
+@media (max-width: 700px) {
+    html{
+        font-size: 5%;
+    }
+    
+}
+
+@media (max-width: 550px) {
+    html{
+        font-size: 4%;
+    }
+    
+}
+
+@media (max-width: 450px) {
+    html{
+        font-size: 3.5%;
+    }
+    
+}
