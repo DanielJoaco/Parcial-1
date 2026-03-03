@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&family=Knewave&display=swap');
+
+html{
+    font-size: 6.25%;
+    background-color: #222;
+    font-family: "Knewave", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: #ffffff;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+nav{
+    display: flex;
+    background: #212830;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+a{
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20rem;
+    padding: 5rem 10rem 5rem 10rem;
+}
+
+
+
+main{
+    flex: 1;
+    background-color: #212830;
+}
+
+h1{
+    font-size: 100rem;
+    color: #ffffff;
+}
+
+h2{
+    font-size: 20rem;
+    color: #ffffff;
+}
+
+h3{
+    font-size: 24rem;
+    color: #fff10c;
+    font-weight: 200;
+    margin: 0;
+}
+
+p{ 
+    font-size: 16rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+footer{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    height: 100rem;
+}
+
+.hero-image{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.card{
+    background-color: #2778a741;
+    border-radius: 10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 200rem;
+    width: 500rem;
+}
+
+.div-card-img{
+    width: 40%;
+}
+
+.div-card-img img{
+    height: 200rem;
+    border-radius: 10rem 0 0rem 10rem;
+
+}
+
+.div-card-info{
+    width: 60%;
+    height: 200rem;
+    padding-top: 30rem;
+    padding-left: 20rem;
+}
+
+.button-alive{
+    border: none;
+    border-radius: 100rem;
+    height: 16rem;
+    width: 16rem;
+    background-color: #27a72f;
+    margin: 0 5rem;;
+}
+
+.view-more{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 20rem;
+}
+
+.view-more a{
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+}
+
+.nav-button{
+    border-radius: 30rem;
+    font-size: 16rem;
+    font-family: "Knewave", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    min-width: 43rem;
+    padding: 8rem;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 1rem solid #222;
+    box-shadow: 5px 4rem 5px 0px #222;
+}
+.nav-button:hover{
+    background-color: #2779a7;
+    color: #ffffff;
+    border: 1rem solid #2779a7;
+}
+
+#icon_nav{
+    width: 40rem;
+    height: 40rem;
+    fill : #2779a7;
+    opacity: 0.7;
+}
+
+#title{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200rem;
+    background-color: #222;
+}
+
+#icon_tittle{
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    fill: #2779a7
+}
+
+#cards-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500rem, 1fr));
+    gap: 20rem;
+    padding: 100rem 20rem 20rem 20rem;
+    justify-items: center;
+}
+
+#nav-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 10rem;
+    margin-top: 20rem;
+    margin-bottom: 30rem;
+}
+
+#view-character{
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 50rem;
+    margin-bottom: 50rem;
+}
+
+#character-card{
+    background-color: #2778a741;
+    border-radius: 10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90%
+
+}
+
+#div-character-img{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50rem;
+    width: 40%;
+
+}
+
+#div-character-img img{
+    margin-top: 30rem;
+    width: 80%;
+}
+#div-character-img button{
+    margin-bottom: 30rem;
+    width: 60%;
+    font-size: 12rem;
+}
+
+#div-character-info{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 20rem;
+    padding: 50rem;
+    height: 300rem;
+    justify-content: space-between;
+}
+
+@media (max-width: 1100px) {
+    h1{
+        font-size: 60rem;
+    }
+    
+}

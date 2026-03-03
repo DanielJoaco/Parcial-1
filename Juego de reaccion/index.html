@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,29 +7,34 @@
     <link rel="stylesheet" href="/Juego de reaccion/css/style.css">
 </head>
 <body>
+    <main>
+        <h1>Juego de Reacción</h1>
 
-    <h1>Juego de Reacción</h1>
+        <section id="game-container">
+            <p class="score" id="score">Puntuación: 0</p>              
+            <div id="target">
+                <button id="target-button_1" class="shooter_button"></button>
+                <button id="target-button_2" class="shooter_button"></button>
+                <button id="target-button_3" class="shooter_button"></button>
+                <button id="target-button_4" class="shooter_button"></button>
+                <button id="target-button_5" class="shooter_button"></button>
+                <button id="target-button_6" class="shooter_button"></button>
+                <button id="target-button_7" class="shooter_button"></button>
+                <button id="target-button_8" class="shooter_button"></button>
+                <button id="target-button_9" class="shooter_button"></button>
+            </div>
+            <p id="message">El juego comienza pronto...</p>
+        </section>
 
-    <section id="game-container">
+        <section id="begin-container" id="begin-container">
+            <button id="start-button">Comenzar Juego</button>
+        </section>
 
-        <p class="score" id="score">Puntuación: 0</p>
-        
-        <div id="target">
-            <button id="target-button_1" class="shooter_button"></button>
-            <button id="target-button_2" class="shooter_button"></button>
-            <button id="target-button_3" class="shooter_button"></button>
-            <button id="target-button_4" class="shooter_button"></button>
-            <button id="target-button_5" class="shooter_button"></button>
-            <button id="target-button_6" class="shooter_button"></button>
-            <button id="target-button_7" class="shooter_button"></button>
-            <button id="target-button_8" class="shooter_button"></button>
-            <button id="target-button_9" class="shooter_button"></button>
-        </div>
-        <p id="message">El juego comienza pronto...</p>
-    </section>
-    <section id="begin-container" id="begin-container">
-        <button id="start-button">Comenzar Juego</button>
-    </section>
+    </main>
+
     <script src="/Juego de reaccion/js/script.js"></script>
+
+
+    
 </body>
 </html>

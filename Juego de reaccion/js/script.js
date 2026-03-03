@@ -39,7 +39,7 @@ function startGame(){
             button.classList.remove("button-hit");
             button.style.visibility = "visible";
             button.textContent = "";
-            button.disabled = false;
+            button.disabled = true;
         }
     }
     //Actualizamos la puntuación y ocultamos el botón de inicio para mostrar el contenedor del juego
@@ -70,14 +70,16 @@ async function gameLogic(){
     //Seleccionamos un botón aleatorio de los disponibles y le asignamos un evento para aumentar la puntuación al hacer clic
     let random_index = Math.floor(Math.random() * index_buttons.length + 1);
     let button = document.getElementById("target-button_" + index_buttons[random_index - 1]);
+    button.disabled = false;
     button.textContent = "X";
     button.addEventListener("click", () => {
         score++;
         button.classList.add("button-hit");
         p_score.textContent = "Puntuación: " + score;
         button.disabled = true;
-    });
+    }, { once: true });
     await delay(2000);
+    button.disabled = true;
     button.style.visibility = "hidden";
     index_buttons.splice(random_index - 1, 1);
     if(index_buttons.length > 0){
@@ -89,5 +91,4 @@ async function gameLogic(){
         await delay(5000);
         refreshPage();
     }
-
 }
