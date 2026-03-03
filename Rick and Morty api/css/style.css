@@ -85,7 +85,7 @@ footer{
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 200rem;
+    height: 280rem;
     width: 500rem;
 }
 
@@ -111,11 +111,22 @@ footer{
     border-radius: 100rem;
     height: 16rem;
     width: 16rem;
-    background-color: #27a72f;
     margin: 0 5rem;;
 }
 
-.view-more{
+.button-alive-true{
+    background-color:rgb(85, 204, 68);
+}
+
+.button-alive-false{
+    background-color: rgb(214, 61, 46);
+}
+
+.button-alive-unknown{
+    background-color: rgb(158, 158, 158);
+}
+
+.view-more, .return{
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -145,6 +156,45 @@ footer{
     background-color: #2779a7;
     color: #ffffff;
     border: 1rem solid #2779a7;
+}
+
+.active-page {
+    background-color: #2779a7 !important;
+    color: white;
+    cursor: default;
+    pointer-events: none; 
+}
+
+.nav-button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    border-color: #999999;
+    opacity: 0.6;
+}
+
+.nav-button:not(:disabled):not(.active-page):hover {
+    background-color: #FF5FCF;
+}
+
+#custom-alert {
+    border: none;
+    border-radius: 15rem;
+    padding: 20rem;
+    background-color: #222; 
+    color: #FAEB92;          
+    font-family: "Knewave", sans-serif;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    display: none;
+    flex-direction: column;
+    gap: 20rem;
+    padding: 50rem;
+
+}
+
+#custom-alert::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
 }
 
 #icon_nav{
