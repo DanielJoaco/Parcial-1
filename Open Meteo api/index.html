@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Meteo API</title>
+    <link rel="stylesheet" href="/Open Meteo api/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+</head>
+<body>
+
+    <header>
+        <nav>
+            <h1>
+                Open Meteo API
+            </h1>
+        </nav>
+    </header>
+
+    <main>
+        <section id="weather-section">
+            <div id="map">
+            </div>
+            <div id="weather-info">
+                <h2>Weather Information</h2>
+                <div id="information">
+                    <p id="latitude"></p>
+                    <p id="longitude"></p>
+                    <p id="temperature"></p>
+                    <p id="humidity"></p>
+                    <p id="wind-speed"></p>
+                    <p id="precipitation"></p>
+                </div>
+                <div id="chart-container" style="width: 100%; height: 300rem; margin-top: 20rem;">
+                    <canvas id="tempChart"></canvas>
+                </div>
+                
+        </section>
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <script src="/Open Meteo api/js/script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+</body>
+</html>
