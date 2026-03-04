@@ -1,3 +1,4 @@
+const infElement = document.getElementById('information');
 const ltdElement = document.getElementById('latitude');
 const lngElement = document.getElementById('longitude');
 const tempElement = document.getElementById('temperature');
@@ -5,15 +6,10 @@ const humElement = document.getElementById('humidity');
 const windElement = document.getElementById('wind-speed');
 const precElement = document.getElementById('precipitation');
 
-
-// Variables globales del mapa para que sean accesibles en todos los scopes
 let map;
 let marker;
 let tempChart;
 
-/**
- * 1. INICIALIZACIÓN DEL MAPA
- */
 function initMap() {
     // Coordenadas iniciales: Bucaramanga, Santander
     const initialCoords = [7.1193, -73.1227];
@@ -139,7 +135,14 @@ function renderTemperatureChart(hourlyData) {
  */
 function updateWeatherUI(data) {
     // 'current' ahora contiene las métricas específicas solicitadas
-    const current = data.current; 
+    const current = data.current;
+
+    if(data.latitude === undefined || data.longitude === undefined) {
+        const p = document.createElement('p');
+        p.textContent = "No information available.";
+        infElement.appendChild(p);
+        return;
+    }
     
     // 1. Las coordenadas están en la raíz del JSON
     ltdElement.textContent = `Latitude: ${data.latitude.toFixed(4)}`;
